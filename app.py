@@ -24,6 +24,10 @@ def allowed_file(filename):
 def home():
     return render_template('index.html')
 
+@app.route('/status', methods=['GET'])
+def status():
+    return jsonify({"status": "API is running"}), 200
+
 @app.route('/encode', methods=['POST'])
 def encode():
     if 'file' not in request.files:
