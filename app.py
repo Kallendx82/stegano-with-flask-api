@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonify
 from werkzeug.utils import secure_filename
-import os
 from imgstegno import encrypt_message, encode_image, decode_image, decrypt_message
+import os
 
 app = Flask(__name__)
 
@@ -52,7 +52,7 @@ def encode():
         output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
         
         try:
-            result = encode_image(input_path, encrypted_message, output_path)
+            encode_image(input_path, encrypted_message, output_path)
             return send_file(output_path, as_attachment=True)
         except Exception as e:
             return str(e), 400
